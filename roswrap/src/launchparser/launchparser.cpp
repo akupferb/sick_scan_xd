@@ -281,12 +281,13 @@ bool LaunchParser::parseFile(std::string launchFileFullName, std::vector<std::st
         if (default_args.find(default_arg_name) != default_args.end())
         {
           std::string default_arg_val = default_args[default_arg_name];
-          ROS_INFO_STREAM("LaunchParser::parseFile(): name=\"" << nameVec.back() << "\", type=\""  << typeVec.back() << "\", value=\""  << valVec.back()
+          ROS_DEBUG_STREAM("LaunchParser::parseFile(): name=\"" << nameVec.back() << "\", type=\""  << typeVec.back() << "\", value=\""  << valVec.back()
             << "\" overwritten by default value \""  << default_arg_val << "\"");
           valVec.back() = default_arg_val;
         }
       }
-      ROS_INFO_STREAM("LaunchParser::parseFile(): name=\"" << nameVec.back() << "\", type=\""  << typeVec.back() << "\", value=\""  << valVec.back() << "\"");
+      // // We don't need this logger when we the params are logged both with info and debug in other places...
+      // ROS_INFO_STREAM("LaunchParser::parseFile(): name=\"" << nameVec.back() << "\", type=\""  << typeVec.back() << "\", value=\""  << valVec.back() << "\"");
     }
 
     ret = true;
