@@ -235,7 +235,7 @@ bool LaunchParser::parseFile(std::string launchFileFullName, std::vector<std::st
         {
           std::string attr_name(p_attr_name), attr_default(p_attr_default);
           default_args[attr_name] = attr_default;
-          ROS_INFO_STREAM("LaunchParser::parseFile(" << launchFileFullName << "): default_args[\"" << attr_name << "\"]=\"" << default_args[attr_name] << "\"");
+          ROS_INFO_STREAM("LaunchParser::parseFile(): default_args[\"" << attr_name << "\"]=\"" << default_args[attr_name] << "\"");
         }
       }
       arg_node = (TiXmlElement *)arg_node->NextSibling();  // go to next sibling
@@ -281,12 +281,12 @@ bool LaunchParser::parseFile(std::string launchFileFullName, std::vector<std::st
         if (default_args.find(default_arg_name) != default_args.end())
         {
           std::string default_arg_val = default_args[default_arg_name];
-          ROS_INFO_STREAM("LaunchParser::parseFile(" << launchFileFullName << "): name=\"" << nameVec.back() << "\", type=\""  << typeVec.back() << "\", value=\""  << valVec.back()
+          ROS_INFO_STREAM("LaunchParser::parseFile(): name=\"" << nameVec.back() << "\", type=\""  << typeVec.back() << "\", value=\""  << valVec.back()
             << "\" overwritten by default value \""  << default_arg_val << "\"");
           valVec.back() = default_arg_val;
         }
       }
-      ROS_INFO_STREAM("LaunchParser::parseFile(" << launchFileFullName << "): name=\"" << nameVec.back() << "\", type=\""  << typeVec.back() << "\", value=\""  << valVec.back() << "\"");
+      ROS_INFO_STREAM("LaunchParser::parseFile(): name=\"" << nameVec.back() << "\", type=\""  << typeVec.back() << "\", value=\""  << valVec.back() << "\"");
     }
 
     ret = true;
