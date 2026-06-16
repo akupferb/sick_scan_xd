@@ -166,7 +166,7 @@ else()
 endif()
 
 # Get sick_scan_xd git version, see http://xit0.org/2013/04/cmake-use-git-branch-and-commit-details-in-project/
-option(QUERY_GIT_INFO "Get sick_scan_xd git version" ON)
+option(QUERY_GIT_INFO "Get sick_scan_xd git version" OFF)
 if(${QUERY_GIT_INFO} OR QUERY_GIT_INFO EQUAL ON)
     if (NOT DEFINED ENV{GITHASH})
         execute_process(
