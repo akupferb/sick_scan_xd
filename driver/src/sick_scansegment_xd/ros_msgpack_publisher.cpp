@@ -898,14 +898,18 @@ void sick_scansegment_xd::RosMsgpackPublisher::convertPointsToLaserscanMsg(uint3
 #elif defined __ROS_VERSION && __ROS_VERSION > 0
 				laser_scan_msg.header.stamp.nsec = timestamp_nsec;
 #endif
-				laser_scan_msg.header.frame_id = frame_id + "_" + std::to_string(layer_idx + 1);
+				if(laser_scan_layer_map.size() > 1) {
+					laser_scan_msg.header.frame_id = frame_id + "_" + std::to_string(layer_idx + 1);
+				} else {
+				    laser_scan_msg.header.frame_id = frame_id;
+				}
 				if (num_echos_publish > 1)
 				  laser_scan_msg.header.frame_id = laser_scan_msg.header.frame_id + "_" + std::to_string(echo_idx);
 				// scan_time = 1 / scan_frequency = time for a full 360-degree rotation of the sensor
 				laser_scan_msg.scan_time = static_cast<float>(m_scan_time);
 				// time_increment = 1 / measurement_frequency = scan_time / (number of scan points in a full 360-degree rotation of the sensor)
 				laser_scan_msg.time_increment = laser_scan_msg.scan_time / (float)(laser_scan_msg.ranges.size() * 2.0 * M_PI / angle_diff);
-				// ROS_INFO_STREAM("convert to LaserScan: frame_id=" << laser_scan_msg.header.frame_id << ", num_points=" << laser_scan_msg.ranges.size() << ", angle_min=" << (laser_scan_msg.angle_min * 180.0 / M_PI) << ", angle_max=" << (laser_scan_msg.angle_max * 180.0 / M_PI));
+				ROS_DEBUG_STREAM("convert to LaserScan: frame_id=" << laser_scan_msg.header.frame_id << ", num_points=" << laser_scan_msg.ranges.size() << ", angle_min=" << (laser_scan_msg.angle_min * 180.0 / M_PI) << ", angle_max=" << (laser_scan_msg.angle_max * 180.0 / M_PI));
 			}
 			else
 			{
