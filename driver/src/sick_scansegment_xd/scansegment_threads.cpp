@@ -279,7 +279,7 @@ bool sick_scansegment_xd::MsgPackThreads::runThreadCb(void)
         // Start SOPAS services (ROS-1 or ROS-2 only)
         sick_scan_xd::SickScanCommonTcp* sopas_tcp = 0;
         sick_scan_xd::SickScanServices* sopas_service = 0;
-        std::string scannerName = SICK_SCANNER_SCANSEGMENT_XD_NAME;
+        std::string scannerName = m_config.scanner_type.empty() ? SICK_SCANNER_SCANSEGMENT_XD_NAME : m_config.scanner_type;
         sick_scan_xd::SickGenericParser parser = sick_scan_xd::SickGenericParser(scannerName);
         sick_scan_xd::ScannerBasicParam basic_param;
         basic_param.setScannerName(scannerName);
