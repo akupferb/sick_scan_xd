@@ -240,7 +240,7 @@ bool sick_scan_xd::SickScanServices::sendSopasAndCheckAnswer(const std::string& 
 {
   if(m_common_tcp)
   {
-    ROS_INFO_STREAM("SickScanServices: Sending request \"" << sopasCmd << "\"");
+    ROS_DEBUG_STREAM("SickScanServices: Sending request \"" << sopasCmd << "\"");
     std::string sopasRequest = std::string("\x02") + sopasCmd + "\x03";
     int result = -1;
     if (m_cola_binary)
@@ -260,7 +260,7 @@ bool sick_scan_xd::SickScanServices::sendSopasAndCheckAnswer(const std::string& 
     else
     {
       sopasReplyString = m_common_tcp->sopasReplyToString(sopasReplyBin);
-      ROS_INFO_STREAM("SickScanServices: Request \"" << sopasCmd << "\" successfully sent, received reply \"" << sopasReplyString << "\"");
+      ROS_DEBUG_STREAM("SickScanServices: Request \"" << sopasCmd << "\" successfully sent, received reply \"" << sopasReplyString << "\"");
       return true;
     }
   }
@@ -289,8 +289,8 @@ bool sick_scan_xd::SickScanServices::serviceCbColaMsg(sick_scan_srv::ColaMsgSrv:
     return false;
   }
 
-  ROS_INFO_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
-  ROS_INFO_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
 
   service_response.response = sopasReplyString;
   return true;
@@ -317,8 +317,8 @@ bool sick_scan_xd::SickScanServices::serviceCbECRChangeArr(sick_scan_srv::ECRCha
   }
   service_response.success = true;
 
-  ROS_INFO_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
-  ROS_INFO_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
 
   return true;
 }
@@ -361,8 +361,8 @@ bool sick_scan_xd::SickScanServices::serviceCbGetContaminationData(sick_scan_srv
         result_idx++;
     }
   }
-  ROS_INFO_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
-  ROS_INFO_STREAM("SickScanServices: response: \"" << sopasReplyString << "\" = \"" << DataDumper::binDataToAsciiString(sopasReplyBin.data(), sopasReplyBin.size()) << "\""
+  ROS_DEBUG_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: response: \"" << sopasReplyString << "\" = \"" << DataDumper::binDataToAsciiString(sopasReplyBin.data(), sopasReplyBin.size()) << "\""
     << " (response.success=" << (int)(service_response.success) << ", response.data=" << DataDumper::binDataToAsciiString(service_response.data.data(), service_response.data.size()) << ")");
 
   return true;
@@ -409,8 +409,8 @@ bool sick_scan_xd::SickScanServices::serviceCbGetContaminationResult(sick_scan_s
       service_response.error = result_byte;
     }
   }
-  ROS_INFO_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
-  ROS_INFO_STREAM("SickScanServices: response: \"" << sopasReplyString << "\" = \"" << DataDumper::binDataToAsciiString(sopasReplyBin.data(), sopasReplyBin.size()) << "\""
+  ROS_DEBUG_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: response: \"" << sopasReplyString << "\" = \"" << DataDumper::binDataToAsciiString(sopasReplyBin.data(), sopasReplyBin.size()) << "\""
     << " (response.success=" << (int)(service_response.success) << ", response.warning=" << (int)(service_response.warning) << ", response.error=" << (int)(service_response.error) << ")");
 
   return true;
@@ -438,8 +438,8 @@ bool sick_scan_xd::SickScanServices::serviceCbLIDoutputstate(sick_scan_srv::LIDo
   }
   service_response.success = true;
 
-  ROS_INFO_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
-  ROS_INFO_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
 
   return true;
 }
@@ -460,8 +460,8 @@ bool sick_scan_xd::SickScanServices::sendAuthorization()
     return false;
   }
 
-  ROS_INFO_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
-  ROS_INFO_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
 
   return true;
 }
@@ -481,8 +481,8 @@ bool sick_scan_xd::SickScanServices::sendRun()
     return false;
   }
 
-  ROS_INFO_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
-  ROS_INFO_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
 
   return true;
 }
@@ -499,7 +499,7 @@ bool sick_scan_xd::SickScanServices::sendSopasCmdCheckResponse(const std::string
     ROS_ERROR_STREAM("## ERROR SickScanServices::sendSopasCmdCheckResponse() failed on sending command\"" << sopas_request << "\"");
     return false;
   }
-  ROS_INFO_STREAM("SickScanServices::sendSopasCmdCheckResponse(): request: \"" << sopas_request << "\", response: \"" << sopasReplyString << "\"");
+  ROS_DEBUG_STREAM("SickScanServices::sendSopasCmdCheckResponse(): request: \"" << sopas_request << "\", response: \"" << sopasReplyString << "\"");
   if(sopasReplyString.find(expected_response) == std::string::npos)
   {
     ROS_ERROR_STREAM("## ERROR SickScanServices::sendSopasCmdCheckResponse(): request: \"" << sopas_request << "\", unexpected response: \"" << sopasReplyString << "\", \"" << expected_response << "\" not found");
@@ -868,7 +868,7 @@ bool sick_scan_xd::SickScanServices::queryMultiScanFiltersettings(int& host_FREc
     std::vector<std::string> parameterToken;
     sick_scansegment_xd::util::parseVector(parameterString, parameterToken, ' ');
     sopasTokens.push_back(parameterToken);
-    ROS_INFO_STREAM("SickScanServices::queryMultiScanFiltersettings(): " << sopasCommands[n] << ": \"" << parameterString << "\" = {" << sick_scansegment_xd::util::printVector(parameterToken, ",") << "}");
+    ROS_DEBUG_STREAM("SickScanServices::queryMultiScanFiltersettings(): " << sopasCommands[n] << ": \"" << parameterString << "\" = {" << sick_scansegment_xd::util::printVector(parameterToken, ",") << "}");
   }
 
   std::vector<float> multiscan_angles_deg;
@@ -970,10 +970,10 @@ bool sick_scan_xd::SickScanServices::queryMultiScanFiltersettings(int& host_FREc
 
   // Example: sopas.FREchoFilter = "1", sopas.LFPangleRangeFilter = "0 -180 180 -90.0002 90.0002 1", sopas.LFPlayerFilter = "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1"
   // msgpack_validator_required_echos = { 0 }, msgpack_validator_angles = { -3.14159 3.14159 -1.5708 1.5708 } [rad], msgpack_validator_layer_filter = { 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 }
-  ROS_INFO_STREAM("SickScanServices::queryMultiScanFiltersettings(): sopas.FREchoFilter = \"" << host_FREchoFilter
+  ROS_DEBUG_STREAM("SickScanServices::queryMultiScanFiltersettings(): sopas.FREchoFilter = \"" << host_FREchoFilter
     << "\", sopas.LFPangleRangeFilter = \"" << host_LFPangleRangeFilter
     << "\", sopas.LFPlayerFilter = \"" << host_LFPlayerFilter  << "\"");
-  ROS_INFO_STREAM("SickScanServices::queryMultiScanFiltersettings(): msgpack_validator_required_echos = { " << sick_scansegment_xd::util::printVector(msgpack_validator_filter_settings.msgpack_validator_required_echos)
+  ROS_DEBUG_STREAM("SickScanServices::queryMultiScanFiltersettings(): msgpack_validator_required_echos = { " << sick_scansegment_xd::util::printVector(msgpack_validator_filter_settings.msgpack_validator_required_echos)
     << " }, msgpack_validator_angles = { " << msgpack_validator_filter_settings.msgpack_validator_azimuth_start << " " << msgpack_validator_filter_settings.msgpack_validator_azimuth_end
     << " " << msgpack_validator_filter_settings.msgpack_validator_elevation_start << " " << msgpack_validator_filter_settings.msgpack_validator_elevation_end
     << " } [rad], msgpack_validator_layer_filter = { " << sick_scansegment_xd::util::printVector(msgpack_validator_filter_settings.msgpack_validator_layer_filter)  << " }");
@@ -1107,8 +1107,8 @@ bool sick_scan_xd::SickScanServices::serviceCbSCdevicestate(sick_scan_srv::SCdev
       state_byte -= '0';
     service_response.state = state_byte;
   }
-  ROS_INFO_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
-  ROS_INFO_STREAM("SickScanServices: response: \"" << sopasReplyString << "\" = \"" << DataDumper::binDataToAsciiString(sopasReplyBin.data(), sopasReplyBin.size()) << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: response: \"" << sopasReplyString << "\" = \"" << DataDumper::binDataToAsciiString(sopasReplyBin.data(), sopasReplyBin.size()) << "\"");
 
   return true;
 }
@@ -1132,8 +1132,8 @@ bool sick_scan_xd::SickScanServices::serviceCbSCreboot(sick_scan_srv::SCrebootSr
     return false;
   }
 
-  ROS_INFO_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
-  ROS_INFO_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
 
   if(!sendRun())
   {
@@ -1164,8 +1164,8 @@ bool sick_scan_xd::SickScanServices::serviceCbSCsoftreset(sick_scan_srv::SCsoftr
     return false;
   }
 
-  ROS_INFO_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
-  ROS_INFO_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
 
   if(!sendRun())
   {
@@ -1197,8 +1197,8 @@ bool sick_scan_xd::SickScanServices::serviceCbSickScanExit(sick_scan_srv::SickSc
     return false;
   }
 
-  ROS_INFO_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
-  ROS_INFO_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: request: \"" << sopasCmd << "\"");
+  ROS_DEBUG_STREAM("SickScanServices: response: \"" << sopasReplyString << "\"");
 
   if(!sendRun())
   {

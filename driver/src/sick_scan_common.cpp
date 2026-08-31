@@ -1153,13 +1153,13 @@ namespace sick_scan_xd
     // send sopas cmd
 
     std::string reqStr = replyToString(requestStr);
-    ROS_INFO_STREAM("Sending  : " << stripControl(requestStr));
+    ROS_DEBUG_STREAM("Sending  : " << stripControl(requestStr));
     result = sendSOPASCommand(cmdStr.c_str(), reply, cmdLen);
     std::string replyStr = replyToString(*reply);
     std::vector<unsigned char> replyVec;
     replyStr = "<STX>" + replyStr + "<ETX>";
     replyVec = stringToVector(replyStr);
-    ROS_INFO_STREAM("Receiving: " << stripControl(replyVec, 96));
+    ROS_DEBUG_STREAM("Receiving: " << stripControl(replyVec, 96));
 
     if (result != 0)
     {
@@ -3580,7 +3580,7 @@ namespace sick_scan_xd
               std::string lmp_scancfg_sopas;
               if (sick_scan_xd::SickScanParseUtil::LMPscancfgToSopas(lmp_scancfg, lmp_scancfg_sopas))
               {
-                ROS_INFO_STREAM("Sending mLMPsetscancfg request: { " << lmp_scancfg.print() << " }");
+                ROS_DEBUG_STREAM("Sending mLMPsetscancfg request: { " << lmp_scancfg.print() << " }");
                 std::vector<unsigned char> reqBinary, lmp_scancfg_reply;
                 if (useBinaryCmd)
                 {
@@ -4259,7 +4259,7 @@ namespace sick_scan_xd
         ROS_WARN_STREAM("NAV350 Warning: start polling deactivated by configuration, no data will be received unless data polling started externally by sopas command \"sMN mNPOSGetData 1 2\"");
       for (int retry_cnt = 0; nav_start_polling == true && retry_cnt < 10 && rosOk(); retry_cnt++)
       {
-        ROS_INFO_STREAM("NAV350: Sending: \"sMN mNPOSGetData 1 2\"");
+        ROS_DEBUG_STREAM("NAV350: Sending: \"sMN mNPOSGetData 1 2\"");
         if (sendNAV350mNPOSGetData() != ExitSuccess)
         {
           ROS_ERROR_STREAM("## ERROR NAV350: Error sending sMN mNPOSGetData request, retrying ...");
